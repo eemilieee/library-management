@@ -1,0 +1,185 @@
+Arpasanu Emilia-Oana
+311 CA
+
+## "The Library of HashBabel" - Tema 2
+
+### Description:
+
+	The program shows the implementation of a hashtable where
+each node from the buckets contains a pointer to another hashtable. This type
+of data structure made it possible to represent a library of books
+within the memory. In order to resemble its utility, an additional hashtable
+becomes a database of borrowers.
+
+	The purpose of the algorithm is to simulate some of the main
+operations that a library normally supports. The user is able to write
+multiple commands to the console until the exit point is reached;
+every line that is read is interpeted. Based on the selected operation,
+the definitory processes are executed.
+
+	The list of accepted commands refers to:
+
+	- adding a book to the library ("ADD_BOOK"):
+
+		* the function allocates memory for a book, inserts the
+	specified number of definitions and places it at the end of a certain shelf
+	from the library (its index is determined by hashing the book's title);
+
+		* if an existent book has the same title as the one that is meant
+	to be inserted, it is removed from the library and replaced with the
+	new book;
+
+	- finding a book within the library ("GET_BOOK"):
+
+		* the function looks for a book with the given title on a certain shelf
+	(its index is determined by hashing the book's title); 
+
+		* if a pair of identical keys is found during the iteration through the
+	existent books, the information of the searched one is printed;
+
+		* if the book was not found, an error message is thrown;
+
+	- removing a book from the library ("RMV_BOOK"):
+
+		* the function looks for a book with the given title on a certain shelf
+	(its index is determined by hashing the book's title);
+
+		* if a pair of identical keys is found during the iteration through the
+	existent books, the searched one is removed and deallocated;
+
+		* if the book was not found, an unsuccessful message is printed;
+
+	- adding a definition to a certain book ("ADD_DEF"):
+
+		* the function looks for a book with the given title on a certain shelf
+	(its index is determined by hashing the book's title);
+
+		* if a pair of identical keys is found during the iteration through the
+	existent books, the dictionary of pages contained by the searched book
+	is accessed (it represents the content);
+
+		* after that, a new definition is created and added to the end of
+	a content's page (it corresponds to the inserted word's hash);
+
+		* if the word that is meant to be defined already has a definition,
+	its corresponding entry from the content's page is removed and replaced
+	with the new definition;
+
+		* if the book was not found, an error message is thrown;
+
+	- finding a definition within a book ("GET_DEF"):
+
+		* the function looks for a book with the given title on a certain shelf
+	(its index is determined by hashing the book's title);
+	
+		* if a pair of identical keys is found during the iteration through the
+	existent books, the dictionary of pages contained by the searched book is
+	accessed (it represents the content);
+
+		* then comes an iteration through the existent definitions on a
+	content's page (it corresponds to the searched word's hash):
+	if the word is found, its definition is printed;
+
+		* in case the book or the word are not entries in the library or book,
+	an unsuccessful message is printed;
+
+	- removing a definition from a chosen book ("RMV_DEF"):
+
+		* the function looks for a book with the given title on a certain shelf
+	(its index is determined by hashing the book's title);
+	
+		* if a pair of identical keys is found during the iteration through the
+	existent books, the dictionary of pages contained by the searched book is
+	accessed (it represents the content);
+
+		* then comes an iteration through the existent definitions on a
+	content's page (it corresponds to the searched word's hash):
+	if the word is found, the associated entry is removed and deallocated;
+
+		* in case the book or the word are not entries in the library or book,
+	an unsuccessful message is printed;
+	
+	- adding a user to the database ("ADD_USER"):
+
+		* the function allocates memory for a user, initializes its information
+	and places it at the end of a certain bucket from the given database
+	(its index is determined by hashing the user's name);
+
+		* if the user had already been added to the database, an exception
+	message is thrown;
+
+	- borrowing a book from the library ("BORROW"):
+
+		* the function looks for a user with the given name on a certain bucket
+	(its index is determined by hashing the name);
+
+		* if a pair of identical keys is not found during the iteration
+	through the existent users, the function is escaped and en error message
+	is thrown;
+
+		* if the user has been found and hadn't been banned,
+	further checks apply:
+
+			-> if the user had already borrowed a book;
+
+			-> if the given book title does not exist within the library;
+
+			-> if the chosen book had already been borrowed by someone else;
+
+		* if any of the cases above is true, an unsuccessful message is printed;
+
+		* otherwise, the user information is updated (the estimated number
+	of days required to read the book) and the book is set as unavailable;
+
+	- returning a book to the library ("RETURN"):
+
+		* the function looks for a user with the given name on a certain bucket
+	(its index is determined by hashing the name);
+
+		* if a pair of identical keys is not found during the iteration
+	through the existent users, the function is escaped and en error message
+	is thrown;
+
+		* if the user has been found and hadn't been banned and the given book
+	title corresponds to the one that the user had borrowed, the return
+	operation takes place successfully:
+
+			-> the user information is updated (its number of points, the title
+	of the currently borrowed book (an empty string for instance) and if
+	he becomes banned);
+
+			-> the book is set as available for further borrows and its rating
+	is calculated;
+
+		* otherwise, exception messages are printed;
+
+	- losing a book from the library ("LOST"):
+
+		* the function looks for a user with the given name on a certain bucket
+	(its index is determined by hashing the name);
+
+		* if a pair of identical keys is not found during the iteration
+	through the existent users, the function is escaped and en error message
+	is thrown;
+
+		* if the user has been found and hadn't been banned and the given book
+	title corresponds to the one that the user had borrowed, then:
+	
+			-> the user information is updated (its number of points, the title
+	of the currently borrowed book (an empty string for instance) and if
+	he becomes banned);
+
+			-> the book is removed and deallocated from the library;
+
+		* otherwise, exception messages are printed;
+
+	- closing the library ("EXIT"):
+
+		* the top of the books and users is showed:
+	the information of all the books and users found within the hashtables
+	is printed in a sorted order using auxiliary arrays to determine
+	the succession of the keys with which the details are gathered from the
+	databases;
+
+		* finally, the library and user database are freed from the memory:
+	(each entry, bucket and hashtable structure is deallocated).
